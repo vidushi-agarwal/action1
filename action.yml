@@ -1,6 +1,6 @@
 name: Send SMS notification with Free Mobile
 description: This action sends a SMS to Free Mobile customer using the included free API.
-author: aslafy-z
+author: vidushi
 
 inputs:
   freemobile_id:
