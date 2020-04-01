@@ -13,7 +13,7 @@ jobs:
 
       - name: Notify
         if: always()
-        uses: aslafy-z/freemobile-sms-action@master
+        uses:freemobile-sms-action@master
         with:
           freemobile_id: ${{ secrets.freemobile_id }}
           freemobile_token: ${{ secrets.freemobile_token }}
