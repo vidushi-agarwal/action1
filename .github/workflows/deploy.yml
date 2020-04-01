@@ -1,0 +1,42 @@
+name: Deploy
+on: push
+jobs:
+  deploy-success:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract branch name
+        run: echo ::set-output name=value::${GITHUB_REF#refs/*/}
+        id: branch
+
+      - name: Deploy
+        run: exit 0
+
+      - name: Notify
+        if: always()
+        uses: aslafy-z/freemobile-sms-action@master
+        with:
+          freemobile_id: ${{ secrets.freemobile_id }}
+          freemobile_token: ${{ secrets.freemobile_token }}
+          message: |
+            ${{ github.repository }}@${{ steps.branch.outputs.value }} deployment resulted in ${{ job.status }}.
+
+  deploy-failure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract branch name
+        run: echo ::set-output name=value::${GITHUB_REF#refs/*/}
+        id: branch
+
+      - name: Deploy
+        run: exit 1
+
+      - name: Notify
+        if: always()
+        uses: aslafy-z/freemobile-sms-action@master
+        with:
+          freemobile_id: ${{ secrets.freemobile_id }}
+          freemobile_token: ${{ secrets.freemobile_token }}
+          message: |
+            ${{ github.repository }}@${{ steps.branch.outputs.value }} deployment resulted in ${{ job.status }}.
